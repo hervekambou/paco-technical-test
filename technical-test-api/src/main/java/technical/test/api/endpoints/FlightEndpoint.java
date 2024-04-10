@@ -1,6 +1,8 @@
 package technical.test.api.endpoints;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
@@ -30,6 +32,11 @@ public class FlightEndpoint {
     @ResponseStatus(HttpStatus.CREATED)
     public Mono<FlightRepresentation> createFlight(@RequestBody FlightRepresentation flightRepresentation) {
         return flightFacade.createFlight(flightRepresentation);
+    }
+
+    @GetMapping("/page")
+    public Mono<Page<FlightRepresentation>> getAllFlightsByPage(Pageable pageable) {
+        return flightFacade.getAllFlightsByPage(pageable);
     }
 
 }
